@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Login.API.Extensions.SwaggerConfigurations;
+namespace IdentityAPI.Extensions.SwaggerConfigurations;
 /// <summary>
 /// Classe responsável pela configuração do Swagger na aplicação.
 /// </summary>

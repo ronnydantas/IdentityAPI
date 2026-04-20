@@ -1,7 +1,7 @@
 ﻿using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Login.API.Extensions.SwaggerConfigurations;
+namespace IdentityAPI.Extensions.SwaggerConfigurations;
 
 /// <summary>
 /// Classe responsável por aplicar configurações padrões nas operações da documentação Swagger.

@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace Login.API.Extensions
+namespace IdentityAPI.Extensions
 {
     /// <summary>
     /// Configura toda a autenticação e validação JWT, incluindo integração com Swagger.

@@ -1,4 +1,4 @@
-﻿namespace Login.API.Extensions;
+﻿namespace IdentityAPI.Extensions;
 
 /// <summary>
 /// Provides extension methods for configuring CORS in the application.
