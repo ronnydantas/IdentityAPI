@@ -9,13 +9,14 @@ namespace Identity.Infrastructure;
 
 public static class AddRepositorySetup
 {
-    public static IServiceCollection AddRepository(this IServiceCollection services, IConfiguration configuration)
-    {
-        services.AddDbContext<PostgresContext>(options =>
+        public static IServiceCollection AddRepository(this IServiceCollection services, IConfiguration configuration)
         {
-            options.UseNpgsql(configuration.GetConnectionString("PostgresConnection"));
-        });
-        services.AddScoped<IUserRepository, UserRepository>();
-        return services;
-    }
+            // Use the same connection string name as in appsettings.json (DefaultConnection)
+            services.AddDbContext<PostgresContext>(options =>
+            {
+                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
+            });
+            services.AddScoped<IUserRepository, UserRepository>();
+            return services;
+        }
 }
