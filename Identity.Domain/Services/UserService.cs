@@ -1,7 +1,7 @@
 ﻿using Identity.Domain.DTOs;
 using Identity.Domain.Entities;
-using Identity.Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Identity.Domain.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;

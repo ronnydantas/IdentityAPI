@@ -35,7 +35,7 @@ internal static class SwaggerConfig
 
             // Incluir comentários XML dos projetos referenciados que começam com "Login.API"
             var referencedProjectsXmlDocPaths = executingAssembly.GetReferencedAssemblies()
-                .Where(assembly => assembly.Name != null && assembly.Name.StartsWith("Login.API", StringComparison.InvariantCultureIgnoreCase))
+                .Where(assembly => assembly.Name != null && assembly.Name.StartsWith("IdentityAPI", StringComparison.InvariantCultureIgnoreCase))
                 .Select(assembly => Path.Combine(AppContext.BaseDirectory, $"{assembly.Name}.xml"));
 
             foreach (var xmlDocPath in referencedProjectsXmlDocPaths)

@@ -1,8 +1,10 @@
 using Identity.Domain;
+using Identity.Domain.Entities;
 using Identity.Infrastructure;
 using Identity.Infrastructure.Context;
 using IdentityAPI.Extensions;
 using IdentityAPI.Extensions.SwaggerConfigurations;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>
@@ -25,16 +27,22 @@ public class Program
 
         builder.Services.AddCustomCors();
 
-        builder.Services.AddRepository(builder.Configuration);
-        builder.Services.AddService(builder.Configuration);
-
-        // Adiciona configuração JWT centralizada
-        builder.Services.AddJwtAuthentication(builder.Configuration);
-
-        // Exemplo: em Program.cs ou na extensão que registra o DbContext
+        // Em Program.cs (antes de registrar seus services que dependem de Identity)
         builder.Services.AddDbContext<PostgresContext>(options =>
             options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"),
                               b => b.MigrationsAssembly("Identity.Infrastructure")));
+
+        // Registrar Identity (isso adiciona SignInManager e UserManager)
+        builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+            .AddEntityFrameworkStores<PostgresContext>()
+            .AddDefaultTokenProviders();
+
+        // Depois registre seus repositórios/serviços que dependem de SignInManager/UserManager
+        builder.Services.AddRepository(builder.Configuration);
+        builder.Services.AddService(builder.Configuration);
+
+        // Registrar autenticação JWT (separado)
+        builder.Services.AddJwtAuthentication(builder.Configuration);
 
         var app = builder.Build();
 
