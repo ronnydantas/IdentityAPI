@@ -6,8 +6,7 @@ using IdentityAPI.Extensions;
 using IdentityAPI.Extensions.SwaggerConfigurations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using MediatR;
-using System.Reflection;
+using Identity.Domain;
 using MediatR;
 using System.Reflection;
 
@@ -43,10 +42,9 @@ public class Program
 
         // Depois registre seus repositórios/serviços que dependem de SignInManager/UserManager
         builder.Services.AddRepository(builder.Configuration);
-        builder.Services.AddService(builder.Configuration);
 
-        // Registrar MediatR handlers
-        builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+        // Registrar serviços e MediatR do domínio
+        builder.Services.AddDomain(builder.Configuration);
 
         // Registrar autenticação JWT (separado)
         builder.Services.AddJwtAuthentication(builder.Configuration);
