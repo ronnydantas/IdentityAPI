@@ -6,9 +6,6 @@ using IdentityAPI.Extensions;
 using IdentityAPI.Extensions.SwaggerConfigurations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Identity.Domain;
-using MediatR;
-using System.Reflection;
 
 /// <summary>
 /// Classe principal do aplicativo Cliente API.

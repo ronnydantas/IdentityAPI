@@ -28,16 +28,35 @@ namespace IdentityAPI.Extensions
                 }
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuer = true,
+                    ValidateIssuer = false,
                     ValidIssuer = configuration["JWT:ValidIssuer"],
 
-                    ValidateAudience = true,
+                    ValidateAudience = false,
                     ValidAudience = configuration["JWT:ValidAudience"],
 
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret)),
 
                     ValidateLifetime = true
+                };
+
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        Console.WriteLine("TOKEN RECEBIDO: " + context.Token);
+                        return Task.CompletedTask;
+                    },
+                    OnAuthenticationFailed = context =>
+                    {
+                        Console.WriteLine("ERRO: " + context.Exception.Message);
+                        return Task.CompletedTask;
+                    },
+                    OnTokenValidated = context =>
+                    {
+                        Console.WriteLine("TOKEN VALIDADO!");
+                        return Task.CompletedTask;
+                    }
                 };
             });
 

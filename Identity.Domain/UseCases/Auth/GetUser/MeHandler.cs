@@ -1,8 +1,6 @@
-using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
-using Identity.Domain.Services;
 using Identity.Domain.DTOs;
+using Identity.Domain.Services;
+using MediatR;
 
 namespace Identity.Domain.UseCases.Auth.GetUser;
 
