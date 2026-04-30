@@ -1,5 +1,5 @@
 using Identity.Domain.DTOs;
-using Identity.Domain.Services;
+using Identity.Domain.Interfaces.User;
 using MediatR;
 
 namespace Identity.Domain.UseCases.Auth.GetUser;

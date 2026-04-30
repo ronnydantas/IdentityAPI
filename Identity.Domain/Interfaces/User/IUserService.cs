@@ -1,7 +1,7 @@
 ﻿using Identity.Domain.DTOs;
 using Identity.Domain.Entities;
 
-namespace Identity.Domain.Services;
+namespace Identity.Domain.Interfaces.User;
 
 public interface IUserService
 {

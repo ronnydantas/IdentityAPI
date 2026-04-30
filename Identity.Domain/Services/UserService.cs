@@ -1,13 +1,13 @@
 ﻿using Identity.Domain.DTOs;
 using Identity.Domain.Entities;
 using Microsoft.AspNetCore.Http;
-using Identity.Domain.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Identity.Domain.Interfaces.User;
 
 namespace Identity.Domain.Services;
 
@@ -89,7 +89,8 @@ public class UserService : IUserService
         {
             Email = signUpDTO.Email,
             SecurityStamp = Guid.NewGuid().ToString(),
-            UserName = signUpDTO.Username
+            UserName = signUpDTO.Username,
+            FullName = signUpDTO.FullName
         };
 
         var result = await _userManager.CreateAsync(user, signUpDTO.Password);

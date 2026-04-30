@@ -2,6 +2,7 @@ using Identity.Domain;
 using Identity.Domain.Entities;
 using Identity.Infrastructure;
 using Identity.Infrastructure.Context;
+using Identity.Infrastructure.RabbitMQ;
 using IdentityAPI.Extensions;
 using IdentityAPI.Extensions.SwaggerConfigurations;
 using Microsoft.AspNetCore.Identity;
@@ -45,6 +46,8 @@ public class Program
 
         // Registrar autenticação JWT (separado)
         builder.Services.AddJwtAuthentication(builder.Configuration);
+
+        builder.Services.AddSingleton<RabbitMqPublisher>();
 
         var app = builder.Build();
 

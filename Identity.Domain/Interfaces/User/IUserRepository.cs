@@ -1,6 +1,6 @@
 ﻿using Identity.Domain.Entities;
 
-namespace Identity.Domain.Interfaces;
+namespace Identity.Domain.Interfaces.User;
 
 public interface IUserRepository
 {

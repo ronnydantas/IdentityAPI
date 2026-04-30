@@ -1,5 +1,7 @@
-﻿using Identity.Domain.Interfaces;
+﻿using Identity.Domain.Interfaces.Event;
+using Identity.Domain.Interfaces.User;
 using Identity.Infrastructure.Context;
+using Identity.Infrastructure.RabbitMQ;
 using Identity.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -17,6 +19,7 @@ public static class AddRepositorySetup
                 options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
             });
             services.AddScoped<IUserRepository, UserRepository>();
-            return services;
+            services.AddScoped<IRabbitMqPublisher, RabbitMqPublisher>();
+        return services;
         }
 }

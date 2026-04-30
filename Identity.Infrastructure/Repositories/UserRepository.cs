@@ -1,5 +1,5 @@
 ﻿using Identity.Domain.Entities;
-using Identity.Domain.Interfaces;
+using Identity.Domain.Interfaces.User;
 using Identity.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 
