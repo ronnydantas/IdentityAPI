@@ -73,7 +73,7 @@ public class UserService : IUserService
         return true;
     }
 
-    public async Task<bool> SignUp(SignUpDTO signUpDTO)
+    public async Task<ApplicationUser> SignUp(SignUpDTO signUpDTO)
     {
         var userExists = await _userManager.FindByNameAsync(signUpDTO.Username);
         if (userExists != null)
@@ -98,7 +98,7 @@ public class UserService : IUserService
         if (!result.Succeeded)
             throw new ArgumentException("Cadastro do usuário falhou.");
 
-        return true;
+        return user;
     }
 
     public async Task<SsoDTO> SignIn(SignInDTO signInDTO)

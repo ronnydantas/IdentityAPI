@@ -18,10 +18,11 @@ public class RegisterHandler : IRequestHandler<RegisterCommand, Unit>
 
     public async Task<Unit> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
-        await _userService.SignUp(request.Model);
+        var user = await _userService.SignUp(request.Model);
 
         var eventDTO = new EventDTO
         {
+            Id = user.Id,
             UserName = request.Model.Username!,
             FullName = request.Model.FullName!,
             Email = request.Model.Email!,

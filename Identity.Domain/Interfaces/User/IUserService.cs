@@ -10,6 +10,6 @@ public interface IUserService
     Task<int> UpdateUser(ApplicationUser user);
     Task<bool> DeleteUser(string userId);
     Task<ApplicationUser> GetCurrentUser();
-    Task<bool> SignUp(SignUpDTO signUpDTO);
+    Task<ApplicationUser> SignUp(SignUpDTO signUpDTO);
     Task<SsoDTO> SignIn(SignInDTO signInDTO);
 }
