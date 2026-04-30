@@ -1,6 +1,8 @@
-﻿namespace Identity.Domain.Interfaces.Event;
+﻿using Identity.Domain.DTOs;
+
+namespace Identity.Domain.Interfaces.Event;
 
 public interface IEventPublishService
 {
-        Task PublishAsync(string name, string email);
+        Task PublishAsync(EventDTO eventDTO);
 }

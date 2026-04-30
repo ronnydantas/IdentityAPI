@@ -1,4 +1,5 @@
-﻿using Identity.Domain.Interfaces.Event;
+﻿using Identity.Domain.DTOs;
+using Identity.Domain.Interfaces.Event;
 
 namespace Identity.Domain.Services;
 
@@ -12,9 +13,9 @@ public class EventPublishService : IEventPublishService
         _publisher = publisher;
     }
 
-    public Task PublishAsync(string name, string email)
+    public Task PublishAsync(EventDTO eventDTO)
     {
-        _publisher.PublishUserCreated(name, email);
+        _publisher.PublishUserCreated(eventDTO);
 
         return Task.CompletedTask;
     }

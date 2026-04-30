@@ -1,3 +1,4 @@
+using Identity.Domain.DTOs;
 using Identity.Domain.Interfaces.Event;
 using Identity.Domain.Interfaces.User;
 using MediatR;
@@ -19,7 +20,13 @@ public class RegisterHandler : IRequestHandler<RegisterCommand, Unit>
     {
         await _userService.SignUp(request.Model);
 
-        await _eventPublishService.PublishAsync(request.Model.Username!, request.Model.Email!);
+        var eventDTO = new EventDTO
+        {
+            UserName = request.Model.Username!,
+            FullName = request.Model.FullName!,
+            Email = request.Model.Email!,
+        };
+        await _eventPublishService.PublishAsync(eventDTO);
 
         return Unit.Value;
     }

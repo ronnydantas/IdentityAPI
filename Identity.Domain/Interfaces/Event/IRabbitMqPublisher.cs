@@ -1,6 +1,8 @@
-﻿namespace Identity.Domain.Interfaces.Event;
+﻿using Identity.Domain.DTOs;
+
+namespace Identity.Domain.Interfaces.Event;
 
 public interface IRabbitMqPublisher
 {
-    void PublishUserCreated(string name, string email);
+    void PublishUserCreated(EventDTO eventDTO);
 }

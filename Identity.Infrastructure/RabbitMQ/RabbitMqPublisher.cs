@@ -1,4 +1,5 @@
-﻿using Identity.Domain.Interfaces.Event;
+﻿using Identity.Domain.DTOs;
+using Identity.Domain.Interfaces.Event;
 using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
 using System.Text;
@@ -15,7 +16,7 @@ public class RabbitMqPublisher : IRabbitMqPublisher
         _configuration = configuration;
     }
 
-    public void PublishUserCreated(string name, string email)
+    public void PublishUserCreated(EventDTO eventDTO)
     {
         var factory = new ConnectionFactory()
         {
@@ -36,13 +37,7 @@ public class RabbitMqPublisher : IRabbitMqPublisher
             durable: true
         );
 
-        var message = new
-        {
-            Name = name,
-            Email = email
-        };
-
-        var body = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(message));
+        var body = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(eventDTO));
 
         channel.BasicPublish(
             exchange: exchangeName,
