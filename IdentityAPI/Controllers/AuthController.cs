@@ -21,9 +21,9 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] SignUpDTO model)
     {
-        await _mediator.Send(new RegisterCommand(model));
+        var user = await _mediator.Send(new RegisterCommand(model));
 
-        return Ok(new { message = "User registered successfully" });
+        return Ok(user);
     }
 
     [HttpPost("login")]

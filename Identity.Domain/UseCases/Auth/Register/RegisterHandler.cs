@@ -5,7 +5,7 @@ using MediatR;
 
 namespace IdentityAPI.UseCases.Auth;
 
-public class RegisterHandler : IRequestHandler<RegisterCommand, Unit>
+public class RegisterHandler : IRequestHandler<RegisterCommand, EventDTO>
 {
     private readonly IUserService _userService;
     private readonly IEventPublishService _eventPublishService;
@@ -16,19 +16,19 @@ public class RegisterHandler : IRequestHandler<RegisterCommand, Unit>
         _eventPublishService = eventPublishService;
     }
 
-    public async Task<Unit> Handle(RegisterCommand request, CancellationToken cancellationToken)
+    public async Task<EventDTO> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
         var user = await _userService.SignUp(request.Model);
 
         var eventDTO = new EventDTO
         {
             Id = user.Id,
-            UserName = request.Model.Username!,
-            FullName = request.Model.FullName!,
-            Email = request.Model.Email!,
+            UserName = user.UserName!,
+            FullName = user.FullName!,
+            Email = user.Email!,
         };
         await _eventPublishService.PublishAsync(eventDTO);
 
-        return Unit.Value;
+        return eventDTO;
     }
 }
