@@ -55,9 +55,9 @@ user.queue
 Evento publicado
 {
   "id": "guid",
-  "name": "rafael",
-  "fullName": "Rafael Oliveira",
-  "email": "rafael@email.com"
+  "name": "ronny",
+  "fullName": "Ronny Dantas",
+  "email": "ronny@email.com"
 }
 🐳 Executando RabbitMQ com Docker
 docker run -d --name rabbitmq \
