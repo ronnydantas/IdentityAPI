@@ -5,29 +5,29 @@ using MediatR;
 
 namespace IdentityAPI.UseCases.Auth;
 
-public class RegisterHandler : IRequestHandler<RegisterCommand, EventDTO>
+public class RegisterHandler : IRequestHandler<RegisterCommand, UserCreatedEvent>
 {
     private readonly IUserService _userService;
-    private readonly IEventPublishService _eventPublishService;
-
-    public RegisterHandler(IUserService userService, IEventPublishService eventPublishService)
+    private readonly IKafkaProducer _kafkaProducer;
+    public RegisterHandler(IUserService userService, IKafkaProducer kafkaProducer)
     {
         _userService = userService;
-        _eventPublishService = eventPublishService;
+        _kafkaProducer = kafkaProducer;
     }
 
-    public async Task<EventDTO> Handle(RegisterCommand request, CancellationToken cancellationToken)
+    public async Task<UserCreatedEvent> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
         var user = await _userService.SignUp(request.Model);
 
-        var eventDTO = new EventDTO
+        var eventDTO = new UserCreatedEvent
         {
             Id = user.Id,
             UserName = user.UserName!,
             FullName = user.FullName!,
             Email = user.Email!,
         };
-        await _eventPublishService.PublishAsync(eventDTO);
+
+        await _kafkaProducer.PublishUserCreated(eventDTO);
 
         return eventDTO;
     }

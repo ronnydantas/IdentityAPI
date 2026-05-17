@@ -16,7 +16,7 @@ public class RabbitMqPublisher : IRabbitMqPublisher
         _configuration = configuration;
     }
 
-    public void PublishUserCreated(EventDTO eventDTO)
+    public void PublishUserCreated(UserCreatedEvent eventDTO)
     {
         var factory = new ConnectionFactory()
         {

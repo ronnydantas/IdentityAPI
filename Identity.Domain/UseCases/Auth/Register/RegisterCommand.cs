@@ -3,4 +3,4 @@ using Identity.Domain.DTOs;
 
 namespace IdentityAPI.UseCases.Auth;
 
-public record RegisterCommand(SignUpDTO Model) : IRequest<EventDTO>;
+public record RegisterCommand(SignUpDTO Model) : IRequest<UserCreatedEvent>;

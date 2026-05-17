@@ -1,6 +1,6 @@
 ﻿namespace Identity.Domain.DTOs;
 
-public class EventDTO
+public class UserCreatedEvent
 {
     public string Id { get; set; } = string.Empty;
     public string UserName { get; set; } = string.Empty;

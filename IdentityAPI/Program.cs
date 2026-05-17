@@ -47,6 +47,8 @@ public class Program
         // Registrar autenticação JWT (separado)
         builder.Services.AddJwtAuthentication(builder.Configuration);
 
+        builder.Services.Configure<KafkaSettings>(builder.Configuration.GetSection("Kafka"));
+
         builder.Services.AddSingleton<RabbitMqPublisher>();
 
         var app = builder.Build();

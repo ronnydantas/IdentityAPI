@@ -1,6 +1,7 @@
 ﻿using Identity.Domain.Interfaces.Event;
 using Identity.Domain.Interfaces.User;
 using Identity.Infrastructure.Context;
+using Identity.Infrastructure.Kafka;
 using Identity.Infrastructure.RabbitMQ;
 using Identity.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,8 @@ public static class AddRepositorySetup
             });
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRabbitMqPublisher, RabbitMqPublisher>();
+            services.AddScoped<IKafkaProducer, KafkaProducer>();
+
         return services;
         }
 }
