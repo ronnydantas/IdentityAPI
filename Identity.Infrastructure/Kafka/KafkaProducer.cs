@@ -23,45 +23,55 @@ public class KafkaProducer : IKafkaProducer
         {
             var config = new ProducerConfig
             {
-                BootstrapServers = _settings.BootstrapServers
+                BootstrapServers =
+                    _settings.BootstrapServers,
+
+                SocketTimeoutMs = 5000,
+
+                MessageTimeoutMs = 5000,
+
+                RequestTimeoutMs = 5000,
+
+                Acks = Acks.All
             };
 
             using var producer =
                 new ProducerBuilder<Null, string>(config)
                 .Build();
 
-            var message = JsonSerializer.Serialize(@event);
-
-            var result = await producer.ProduceAsync(
-                _settings.TopicUserCreated,
-                new Message<Null, string>
-                {
-                    Value = message
-                });
+            var message =
+                JsonSerializer.Serialize(@event);
 
             Console.WriteLine(
-                $"Mensagem enviada para Kafka. " +
-                $"Topic: {result.Topic} | " +
-                $"Partition: {result.Partition} | " +
-                $"Offset: {result.Offset}");
+                $"Enviando mensagem: {message}");
+
+            var result =
+                await producer.ProduceAsync(
+                    _settings.TopicUserCreated,
+                    new Message<Null, string>
+                    {
+                        Value = message
+                    });
+
+            producer.Flush(
+                TimeSpan.FromSeconds(5));
+
+            Console.WriteLine(
+                $"Mensagem enviada para: {result.TopicPartitionOffset}");
         }
         catch (ProduceException<Null, string> ex)
         {
             Console.WriteLine(
-                $"Erro ao publicar mensagem no Kafka: {ex.Error.Reason}");
+                $"Erro Kafka Produce: {ex.Error.Reason}");
 
-            throw new ApplicationException(
-                "Erro ao publicar evento no Kafka.",
-                ex);
+            throw;
         }
         catch (Exception ex)
         {
             Console.WriteLine(
-                $"Erro inesperado no Kafka Producer: {ex.Message}");
+                $"Erro geral Kafka: {ex.Message}");
 
-            throw new ApplicationException(
-                "Erro inesperado ao publicar mensagem no Kafka.",
-                ex);
+            throw;
         }
     }
 }
